@@ -7,7 +7,7 @@ use crate::{
 };
 use bevy_utils::tracing::trace;
 use std::ops::Range;
-use wgpu::{IndexFormat, RenderPass};
+use wgpu::{Buffer, BufferAddress, IndexFormat, RenderPass};
 
 /// Tracks the current [`TrackedRenderPass`] state to ensure draw calls are valid.
 #[derive(Debug, Default)]
@@ -231,6 +231,20 @@ impl<'a> TrackedRenderPass<'a> {
             instances
         );
         self.pass.draw_indexed(indices, base_vertex, instances);
+    }
+
+    pub fn draw_indexed_indirect(
+        &mut self,
+        indirect_buffer: &'a Buffer,
+        indirect_offset: BufferAddress,
+    ) {
+        trace!(
+            "draw indexed indirect: {:?} {}",
+            indirect_buffer,
+            indirect_offset,
+        );
+        self.pass
+            .draw_indexed_indirect(indirect_buffer, indirect_offset);
     }
 
     pub fn set_stencil_reference(&mut self, reference: u32) {

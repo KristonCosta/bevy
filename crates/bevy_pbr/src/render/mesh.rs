@@ -733,6 +733,15 @@ impl EntityRenderCommand for DrawMesh {
                 GpuBufferInfo::NonIndexed { vertex_count } => {
                     pass.draw(0..*vertex_count, 0..1);
                 }
+                GpuBufferInfo::IndexedIndirect {
+                    index_buffer,
+                    index_format,
+                    indirect_buffer,
+                    indirect_offset,
+                } => {
+                    pass.set_index_buffer(index_buffer.slice(..), 0, *index_format);
+                    pass.draw_indexed_indirect(indirect_buffer, *indirect_offset);
+                }
             }
             RenderCommandResult::Success
         } else {

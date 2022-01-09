@@ -13,7 +13,8 @@ use bevy_reflect::TypeUuid;
 use bevy_utils::EnumVariantMeta;
 use std::{borrow::Cow, collections::BTreeMap};
 use wgpu::{
-    util::BufferInitDescriptor, BufferUsages, IndexFormat, PrimitiveTopology, VertexFormat,
+    util::BufferInitDescriptor, BufferAddress, BufferUsages, IndexFormat, PrimitiveTopology,
+    VertexFormat,
 };
 
 pub const INDEX_BUFFER_ASSET_INDEX: u64 = 0;
@@ -607,6 +608,12 @@ pub enum GpuBufferInfo {
     },
     NonIndexed {
         vertex_count: u32,
+    },
+    IndexedIndirect {
+        index_buffer: Buffer,
+        index_format: IndexFormat,
+        indirect_buffer: Buffer,
+        indirect_offset: BufferAddress,
     },
 }
 
