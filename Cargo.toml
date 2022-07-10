@@ -16,18 +16,6 @@ exclude = ["benches", "crates/bevy_ecs_compile_fail_tests"]
 members = ["crates/*", "examples/ios", "tools/ci", "tools/spancmp", "tools/build-example-pages", "tools/build-wasm-example", "errors"]
 
 [features]
-default = [
-  "animation",
-  "bevy_audio",
-  "bevy_gilrs",
-  "bevy_winit",
-  "render",
-  "png",
-  "hdr",
-  "vorbis",
-  "x11",
-  "filesystem_watcher",
-]
 
 # Force dynamic linking, which improves iterative compile times
 dynamic = ["bevy_dylib"]
